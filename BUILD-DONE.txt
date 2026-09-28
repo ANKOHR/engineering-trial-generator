@@ -1,0 +1,4 @@
+Test count: 23 passed with pytest.
+Local build commit hash: 6f0b28241506fdf9c254fffd44008a6242f11898
+
+Summary: Built the Engineering Trial Generator as a deterministic Python CLI with synthetic fixture generation, exact claim-to-evidence mapping, unsupported-claim flags, generated acceptance criteria, structural checks, fixed pricing, one-to-two-day time boxes, and a report command. Added the three fictional sample problems, evidence pointers, generated Markdown and JSON trial definitions, a coverage index, a pytest suite, and documentation of the honesty boundary and pricing rule. All three reported definitions pass the acceptance checker.
