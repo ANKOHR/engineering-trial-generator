@@ -1,0 +1,39 @@
+{
+  "id": "invoice-reconciliation",
+  "fixture_status": "SYNTHETIC",
+  "title": "Invoice reconciliation errors",
+  "description": "A small finance team manually compares invoice exports and spends time finding total mismatches.",
+  "required_claims": [
+    "parse invoice CSV rows",
+    "compare invoice totals and flag mismatches"
+  ],
+  "artifact": {
+    "name": "Invoice reconciliation validator",
+    "files": [
+      "reconciled.csv",
+      "exceptions.csv",
+      "README.md"
+    ],
+    "format": "A runnable standard-library Python script with CSV input and output."
+  },
+  "acceptance_profile": {
+    "kind": "invoice_csv_reconciliation",
+    "input_rows": 10,
+    "matched_rows": 8,
+    "mismatched_rows": 2,
+    "required_exception_columns": [
+      "invoice_id",
+      "expected_total",
+      "observed_total",
+      "difference"
+    ]
+  },
+  "assumptions": [
+    "The buyer supplies one UTF-8 CSV with invoice_id, expected_total, and observed_total columns.",
+    "Currency values use decimal notation with a period separator."
+  ],
+  "exclusions": [
+    "No connection to accounting software or live financial data.",
+    "No tax, foreign exchange, or accounting policy advice."
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "support-document-trust",
+  "fixture_status": "SYNTHETIC",
+  "title": "Support documents nobody trusts",
+  "description": "A support team wants a repeatable way to inspect a fixed set of help documents for broken links and missing required sections.",
+  "required_claims": [
+    "extract document sections and citations",
+    "validate links and required sections"
+  ],
+  "artifact": {
+    "name": "Support documentation audit bundle",
+    "files": [
+      "source-map.csv",
+      "link-results.csv",
+      "issues.csv",
+      "README.md"
+    ],
+    "format": "A runnable standard-library checker and three CSV result files."
+  },
+  "acceptance_profile": {
+    "kind": "support_document_audit",
+    "document_rows": 12,
+    "link_pass_rows": 10,
+    "link_fail_rows": 2,
+    "broken_link_findings": 2,
+    "missing_section_findings": 2,
+    "source_map_columns": [
+      "source_id",
+      "section_heading",
+      "citation_locator"
+    ]
+  },
+  "assumptions": [
+    "The buyer supplies a frozen bundle of 12 UTF-8 help documents and a required-section list.",
+    "The trial checks local copies and does not crawl or change a live help centre."
+  ],
+  "exclusions": [
+    "No rewrite or factual review of support content.",
+    "No live website monitoring or content-management integration."
+  ]
+}

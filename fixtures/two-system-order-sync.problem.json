@@ -1,0 +1,41 @@
+{
+  "id": "two-system-order-sync",
+  "fixture_status": "SYNTHETIC",
+  "title": "Manual order syncing between two systems",
+  "description": "A shop manually compares two order exports and needs a concise review list of records that differ.",
+  "required_claims": [
+    "compare order records across two exports",
+    "produce a reviewable mismatch report"
+  ],
+  "artifact": {
+    "name": "Two-export order comparison bundle",
+    "files": [
+      "matched.csv",
+      "mismatches.csv",
+      "comparison-summary.json",
+      "README.md"
+    ],
+    "format": "A runnable standard-library comparator and CSV/JSON result files."
+  },
+  "acceptance_profile": {
+    "kind": "two_export_order_comparison",
+    "left_records": 25,
+    "right_records": 25,
+    "matched_records": 22,
+    "mismatched_records": 3,
+    "mismatch_columns": [
+      "order_id",
+      "left_status",
+      "right_status",
+      "mismatch_reason"
+    ]
+  },
+  "assumptions": [
+    "The buyer supplies two UTF-8 CSV exports with 25 records each and a shared order_id field.",
+    "Status values can be compared as exact text after trimming surrounding whitespace."
+  ],
+  "exclusions": [
+    "No write-back to either commerce or fulfilment system.",
+    "No automatic resolution of mismatches or live synchronisation service."
+  ]
+}

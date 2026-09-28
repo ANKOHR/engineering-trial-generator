@@ -1,0 +1,81 @@
+{
+  "schema_version": "1.0",
+  "id": "invoice-reconciliation",
+  "title": "Invoice reconciliation errors",
+  "fixture_status": "SYNTHETIC",
+  "honesty_boundary": "This tool is a scoping aid for checkable trial definitions, not a guarantee of outcomes. Synthetic demo claims describe fictional examples and no real engagements. Evidence pointers are supplied by the input and are not independently inspected.",
+  "problem": "A small finance team manually compares invoice exports and spends time finding total mismatches.",
+  "scope_status": "evidence-backed scope",
+  "artifact": {
+    "name": "Invoice reconciliation validator",
+    "files": [
+      "reconciled.csv",
+      "exceptions.csv",
+      "README.md"
+    ],
+    "format": "A runnable standard-library Python script with CSV input and output.",
+    "scope_limit": "The artifact is limited to the mapped capabilities and listed acceptance criteria."
+  },
+  "claim_coverage": {
+    "mapped_count": 2,
+    "unsupported_count": 0,
+    "mapped_claims": [
+      {
+        "claim": "parse invoice CSV rows",
+        "project": "Synthetic Ledger Linter",
+        "evidence_pointers": [
+          "synthetic://ledger-linter/src/csv_reader.py",
+          "synthetic://ledger-linter/tests/test_csv_reader.py#6-cases",
+          "synthetic://ledger-linter/demo/index.html"
+        ]
+      },
+      {
+        "claim": "compare invoice totals and flag mismatches",
+        "project": "Synthetic Ledger Linter",
+        "evidence_pointers": [
+          "synthetic://ledger-linter/src/reconcile.py",
+          "synthetic://ledger-linter/tests/test_reconcile.py#8-cases"
+        ]
+      }
+    ],
+    "unsupported_claims": []
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-01",
+      "condition": "The output directory contains exactly 3 files: reconciled.csv, exceptions.csv, README.md.",
+      "owner": "Buyer",
+      "verification_method": "List the output directory and compare the filenames with the required set."
+    },
+    {
+      "id": "AC-02",
+      "condition": "Given the 10-row synthetic invoice input, reconciled.csv contains 8 matching rows and exceptions.csv contains 2 mismatch rows.",
+      "owner": "Buyer",
+      "verification_method": "Run the script on the supplied synthetic CSV, then count data rows in both output CSV files."
+    },
+    {
+      "id": "AC-03",
+      "condition": "Each exceptions.csv row includes invoice_id, expected_total, observed_total, difference columns.",
+      "owner": "Buyer",
+      "verification_method": "Open exceptions.csv and compare its header row with the 4 required column names."
+    }
+  ],
+  "assumptions": [
+    "The buyer supplies one UTF-8 CSV with invoice_id, expected_total, and observed_total columns.",
+    "Currency values use decimal notation with a period separator."
+  ],
+  "exclusions": [
+    "No connection to accounting software or live financial data.",
+    "No tax, foreign exchange, or accounting policy advice."
+  ],
+  "time_box": {
+    "days": 1,
+    "label": "1 day"
+  },
+  "fixed_price": {
+    "amount": 1125,
+    "currency": "GBP",
+    "display": "GBP 1,125",
+    "pricing_rule": "GBP 750 per day plus GBP 125 per acceptance criterion; day count follows the documented scope threshold."
+  }
+}

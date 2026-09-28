@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "id": "two-system-order-sync",
+  "title": "Manual order syncing between two systems",
+  "fixture_status": "SYNTHETIC",
+  "honesty_boundary": "This tool is a scoping aid for checkable trial definitions, not a guarantee of outcomes. Synthetic demo claims describe fictional examples and no real engagements. Evidence pointers are supplied by the input and are not independently inspected.",
+  "problem": "A shop manually compares two order exports and needs a concise review list of records that differ.",
+  "scope_status": "evidence-backed scope",
+  "artifact": {
+    "name": "Two-export order comparison bundle",
+    "files": [
+      "matched.csv",
+      "mismatches.csv",
+      "comparison-summary.json",
+      "README.md"
+    ],
+    "format": "A runnable standard-library comparator and CSV/JSON result files.",
+    "scope_limit": "The artifact is limited to the mapped capabilities and listed acceptance criteria."
+  },
+  "claim_coverage": {
+    "mapped_count": 2,
+    "unsupported_count": 0,
+    "mapped_claims": [
+      {
+        "claim": "compare order records across two exports",
+        "project": "Synthetic Order Pair Diff",
+        "evidence_pointers": [
+          "synthetic://order-pair-diff/src/compare.py",
+          "synthetic://order-pair-diff/tests/test_compare.py#10-cases"
+        ]
+      },
+      {
+        "claim": "produce a reviewable mismatch report",
+        "project": "Synthetic Order Pair Diff",
+        "evidence_pointers": [
+          "synthetic://order-pair-diff/src/report.py",
+          "synthetic://order-pair-diff/tests/test_report.py#5-cases",
+          "synthetic://order-pair-diff/demo/index.html"
+        ]
+      }
+    ],
+    "unsupported_claims": []
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-01",
+      "condition": "comparison-summary.json reports exactly 25 left records, 25 right records, 22 matched records, and 3 mismatched records.",
+      "owner": "Buyer",
+      "verification_method": "Parse comparison-summary.json and compare each count with the 4 specified values."
+    },
+    {
+      "id": "AC-02",
+      "condition": "mismatches.csv contains exactly 3 data rows and the columns order_id, left_status, right_status, mismatch_reason.",
+      "owner": "Buyer",
+      "verification_method": "Count mismatches.csv rows and compare its header with the 4 required column names."
+    },
+    {
+      "id": "AC-03",
+      "condition": "matched.csv contains exactly 22 data rows, with one row per matching order_id.",
+      "owner": "Buyer",
+      "verification_method": "Count matched.csv data rows and verify that order_id values are unique."
+    }
+  ],
+  "assumptions": [
+    "The buyer supplies two UTF-8 CSV exports with 25 records each and a shared order_id field.",
+    "Status values can be compared as exact text after trimming surrounding whitespace."
+  ],
+  "exclusions": [
+    "No write-back to either commerce or fulfilment system.",
+    "No automatic resolution of mismatches or live synchronisation service."
+  ],
+  "time_box": {
+    "days": 1,
+    "label": "1 day"
+  },
+  "fixed_price": {
+    "amount": 1125,
+    "currency": "GBP",
+    "display": "GBP 1,125",
+    "pricing_rule": "GBP 750 per day plus GBP 125 per acceptance criterion; day count follows the documented scope threshold."
+  }
+}

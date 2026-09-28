@@ -1,0 +1,82 @@
+{
+  "schema_version": "1.0",
+  "id": "support-document-trust",
+  "title": "Support documents nobody trusts",
+  "fixture_status": "SYNTHETIC",
+  "honesty_boundary": "This tool is a scoping aid for checkable trial definitions, not a guarantee of outcomes. Synthetic demo claims describe fictional examples and no real engagements. Evidence pointers are supplied by the input and are not independently inspected.",
+  "problem": "A support team wants a repeatable way to inspect a fixed set of help documents for broken links and missing required sections.",
+  "scope_status": "evidence-backed scope",
+  "artifact": {
+    "name": "Support documentation audit bundle",
+    "files": [
+      "source-map.csv",
+      "link-results.csv",
+      "issues.csv",
+      "README.md"
+    ],
+    "format": "A runnable standard-library checker and three CSV result files.",
+    "scope_limit": "The artifact is limited to the mapped capabilities and listed acceptance criteria."
+  },
+  "claim_coverage": {
+    "mapped_count": 2,
+    "unsupported_count": 0,
+    "mapped_claims": [
+      {
+        "claim": "extract document sections and citations",
+        "project": "Synthetic Doc Trust Checker",
+        "evidence_pointers": [
+          "synthetic://doc-trust/src/section_index.py",
+          "synthetic://doc-trust/tests/test_section_index.py#7-cases"
+        ]
+      },
+      {
+        "claim": "validate links and required sections",
+        "project": "Synthetic Doc Trust Checker",
+        "evidence_pointers": [
+          "synthetic://doc-trust/src/doc_checks.py",
+          "synthetic://doc-trust/tests/test_doc_checks.py#9-cases",
+          "synthetic://doc-trust/demo/index.html"
+        ]
+      }
+    ],
+    "unsupported_claims": []
+  },
+  "acceptance_criteria": [
+    {
+      "id": "AC-01",
+      "condition": "source-map.csv contains exactly 12 data rows, each with non-empty source_id, section_heading, citation_locator values.",
+      "owner": "Buyer",
+      "verification_method": "Count source-map.csv rows and inspect the 3 required columns for blank cells."
+    },
+    {
+      "id": "AC-02",
+      "condition": "link-results.csv contains exactly 12 data rows: 10 PASS and 2 FAIL status values.",
+      "owner": "Buyer",
+      "verification_method": "Count data rows and compare the status column values with the required totals."
+    },
+    {
+      "id": "AC-03",
+      "condition": "issues.csv contains exactly 4 data rows: 2 broken-link findings and 2 missing-section findings.",
+      "owner": "Buyer",
+      "verification_method": "Count issues.csv rows and group finding_type values into the 2 required categories."
+    }
+  ],
+  "assumptions": [
+    "The buyer supplies a frozen bundle of 12 UTF-8 help documents and a required-section list.",
+    "The trial checks local copies and does not crawl or change a live help centre."
+  ],
+  "exclusions": [
+    "No rewrite or factual review of support content.",
+    "No live website monitoring or content-management integration."
+  ],
+  "time_box": {
+    "days": 1,
+    "label": "1 day"
+  },
+  "fixed_price": {
+    "amount": 1125,
+    "currency": "GBP",
+    "display": "GBP 1,125",
+    "pricing_rule": "GBP 750 per day plus GBP 125 per acceptance criterion; day count follows the documented scope threshold."
+  }
+}
